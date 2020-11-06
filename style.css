@@ -1,0 +1,11 @@
+#startPage {
+    display: block;
+}
+
+#quiz {
+    display: none;
+}
+
+#gameOver {
+    display:none;
+}

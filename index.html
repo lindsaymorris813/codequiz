@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="highscore.html">View Highscores</a>
+        <a class="navbar-brand form-inline" id ="timer">Score: 60</a>
+    </nav>
+
+    <div class="container text-center pt-4" id="start-container">
+        <h1 class="display-4">Coding Quiz Challenge</h1>
+        <p class="lead">Answer coding related questions within the time given. The faster you answer, the higher your
+            score!</p>
+        <p class="my-4">Note: Incorrect answers will penalize your score/time!</p>
+        <button class="btn btn-secondary btn-lg" id="start-quiz-btn">Start Quiz</button>
+    </div>
+
+    <div class="container text-center pt-4 d-none" id="quiz-container">
+        <h2 id="question" class="pt-2">Question Question Question Question Question</h2>
+        <div class="list-group-flush p-4">
+            <div class="row p-1">
+                <button id="li1" class="btn btn-primary btn-lg" role="button">Choice one</button>
+            </div>
+            <div class="row p-1">
+                <button id="li2" class="btn btn-primary btn-lg" role="button">Choice two</button>
+            </div>
+            <div class="row p-1">
+                <button id="li3" class="btn btn-primary btn-lg" role="button">Choice three</button>
+            </div>
+            <div class="row p-1">
+                <button id="li4" class="btn btn-primary btn-lg" role="button">Choice four</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-none" id="game-over-container">
+        <form class="text-center p-4">
+            <h2>Game Over</h2>
+            <h4>Your final score: </h4>
+            <div class="form-group text-center">
+                <label for="initials">Enter Your Initials</label>
+                <input type="text" class="form-control" id="initials" placeholder="Ex: ABC">
+                <button class="btn btn-secondary btn-lg m-4" id = "userSubmit" href="highscore.html">Submit</a>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
