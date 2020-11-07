@@ -12,9 +12,10 @@ var userInitials = document.querySelector("#initials");
 var userSubmitBtn = document.querySelector("#userSubmit");
 var timer = document.querySelector("#timer");
 var choiceList = document.querySelector("#choice-list");
+var finalScore = document.querySelector("#final-score");
 var userAnswer;
 var correctAnswer;
-var timePenalty = 10;
+var timerInterval;
 var q = 0;
 var highScore = [];
 
@@ -66,6 +67,9 @@ var secondsLeft = quizQuestions.length * 20;
 function gameOver() {
     quizContainer.classList.add("d-none");
     gameOverContainer.classList.remove("d-none");
+    timer.classList.add("d-none");
+    finalScore.textContent = "Your Final Score: " + secondsLeft;
+    
 
 }
 
@@ -107,7 +111,6 @@ choiceList.addEventListener('click', function (event) {
             secondsLeft = secondsLeft -15;
         }, 2000);
     }
-    clearInterval();
 })
 
 //score/timer count down

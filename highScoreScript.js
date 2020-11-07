@@ -15,10 +15,10 @@ function showTopScores() {
     };
 }
 
+
 //clear scores button
 clearScoresBtn.addEventListener('click', function() {
     localStorage.clear();
-    var highScoresArray = JSON.parse(localStorage.getItem("scores"));
 });
 
 //go back button restarts game
