@@ -25,72 +25,90 @@ function getStoredScores() {
         highScore = storedScores;
     }
 }
+
+//array of objects for questions, choices, and answer
 var quizQuestions = [
     {
         question: "Commonly used data types DO NOT include ____",
-        choices: ["stings", "numbers", "alerts", "booleans"],
-        answerIndex: "alerts",
+        choices: ["strings", "numbers", "alerts", "booleans"],
+        answer: "alerts",
     },
     {
         question: "The condition in an if else statement is enclosed within _____",
         choices: ["parentheses", "quotes", "curly brackets", "square brackets"],
-        answerIndex: "curly brackets",
+        answer: "curly brackets",
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
         choices: ["JavaScript", "terminal/bash", "for loops", "console.log"],
-        answerIndex: "console.log",
+        answer: "console.log",
     },
     {
-        question: "String values must be enclosed withing ______ when being assigned variables.",
+        question: "String values must be enclosed within ______ when being assigned variables.",
         choices: ["commas", "curly brackets", "quotes", "parentheses"],
-        answerIndex: "quotes",
+        answer: "quotes",
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
         choices: ["script", "scripting", "js", "javascript"],
-        answerIndex: "script",
+        answer: "script",
     },
     {
         question: "How do you create a function in JavaScript?",
         choices: ["function: myFunction()", "function myFunction()", "function= myFunction()", "myFunction = function()"],
-        answerIndex: "function myFunction()",
+        answer: "function myFunction()",
     }
 ];
 
-var secondsLeft = quizQuestions.length * 10;
+//20 seconds per question
+var secondsLeft = quizQuestions.length * 20;
 
 function gameOver() {
     quizContainer.classList.add("d-none");
     gameOverContainer.classList.remove("d-none");
 
 }
+
 //running through questions, loops as you click answers, when all questinos complete or time is out, 
 //hides question container and shows game over container
 function showQuestions() {
     if (q >= quizQuestions.length) {
         gameOver();
     } else {
-    var correctAnswer = quizQuestions[q].answerIndex;
     question.textContent = quizQuestions[q].question;
     choiceOne.textContent = quizQuestions[q].choices[0];
     choiceTwo.textContent = quizQuestions[q].choices[1];
     choiceThree.textContent = quizQuestions[q].choices[2];
     choiceFour.textContent = quizQuestions[q].choices[3];
-    return correctAnswer;
-}
-// to move on to next question
-function nextquestion() {
-    q++;
-    var correctAnswer = quizQuestions[q].answerIndex;
-    question.textContent = quizQuestions[q].question;
-    choiceOne.textContent = quizQuestions[q].choices[0];
-    choiceTwo.textContent = quizQuestions[q].choices[1];
-    choiceThree.textContent = quizQuestions[q].choices[2];
-    choiceFour.textContent = quizQuestions[q].choices[3];
-    return correctAnswer;
     }
 }
+   //check user selection against correct answer
+choiceList.addEventListener('click', function (event) {
+    var correctAnswer = quizQuestions[q].answer;
+    var userAnswer = (event.target);
+    console.log(userAnswer.innerHTML);
+    console.log(correctAnswer);
+    var resultMessage = document.createElement("h2");
+    if (userAnswer.innerHTML === correctAnswer) {
+        resultMessage.textContent = "Correct!";
+        choiceList.appendChild(resultMessage);
+        setTimeout(function () {
+            resultMessage.textContent= " ";
+            q++
+            showQuestions();
+        }, 2000);
+    } else {
+        resultMessage.textContent = "Wrong!";
+        choiceList.appendChild(resultMessage);
+        setTimeout(function () {
+            resultMessage.textContent= " ";
+            q++
+            showQuestions();
+            secondsLeft = secondsLeft -15;
+        }, 2000);
+    }
+    clearInterval();
+})
 
 //score/timer count down
 function score() {
@@ -100,28 +118,11 @@ function score() {
 
         if (secondsLeft === 0) {
             gameOver();
+            clearInterval(timerInterval);
         }
 
     }, 1000);
 };
-//check user selection against correct answer
-choiceList.addEventListener('click', function (event) {
-    event.preventDefault();
-    var userAnswer = (event.target);
-
-    if (userAnswer.innerHTML === correctAnswer) {
-        setTimeout(correctAnswerResponse, 2000);
-        q++
-        showQuestions();
-    } else {
-        setTimeout(wrongAnswerResponse, 2000);
-        q++
-        showQuestions();
-
-    }
-    return userAnswer;
-    gameOver();
-}),
 
 //user submits initials and saves high score & initials to local storage
 userSubmitBtn.addEventListener('click', function (event) {
@@ -139,21 +140,7 @@ userSubmitBtn.addEventListener('click', function (event) {
     } else {
         alert("Please enter initials");
     }
-});
-
-function correctAnswerResponse(event) {
-    function playSound() {
-        var a = new Audio(Assets/week7-brrring.mp3);
-        a.play();
-    }
-}
-
-function wrongAnswerResponse(event) {
-    function playSound() {
-        var a = new Audio(Assets/week7-bounce.mp3);
-        a.play();
-    }
-}
+})
 
 //hides start div, shows questions and answer choices div
 startBtn.addEventListener('click', function () {
@@ -161,4 +148,4 @@ startBtn.addEventListener('click', function () {
     quizContainer.classList.remove("d-none");
     showQuestions();
     score();
-});
+})
